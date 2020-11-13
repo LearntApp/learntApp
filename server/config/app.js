@@ -3,11 +3,25 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+require('dotenv').config();
+
 
 var indexRouter = require('../routes/index');
 var usersRouter = require('../routes/users');
 
 var app = express();
+
+
+// DB Configuration
+const DB = process.env.MONGO_URI;
+// Connect to Mongo
+mongoose.connect(DB, {useNewUrlParser: true, useUnifiedTopology: true});
+let mongoDB = mongoose.connection;
+mongoDB.on('error', console.error.bind(console, 'DB Connection Error: '));
+mongoDB.once('open', ()=>{
+  console.log('Connected to MongoDB...');
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));
