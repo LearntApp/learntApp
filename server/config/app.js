@@ -34,6 +34,7 @@ mongoDB.once('open', ()=>{
 //require('./config/passport')(passport);
 
 // EJS Config
+app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
 
 
@@ -47,6 +48,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '../../node_modules'))); // added to predetermine the path for libraries used inside node modules
+app.use(express.static(path.join(__dirname, '../../public'))); // added to predetermine the path for libraries used inside node modules
+app.use(express.static(path.join(__dirname, '../views'))); // added to predetermine the path for libraries used inside node modules
 
 // Express session
 app.use(session({
